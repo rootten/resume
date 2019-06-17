@@ -1,6 +1,6 @@
 /*!
  * Start Bootstrap -  v1.0.0 (https://github.com/rootten/resume#readme)
- * Copyright 2013-2018 Lukasz Korzeniowski
+ * Copyright 2013-2019 Lukasz Korzeniowski
  * Licensed under ISC (https://github.com/BlackrockDigital/resume/blob/master/LICENSE)
  */
 
