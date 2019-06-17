@@ -111,24 +111,31 @@ function cssMinify() {
     .pipe(browserSync.stream());
 }
 
-function sync() {
-  return browserSync.init({
+function reload(done) {
+  browserSync.reload();
+  done();
+}
+
+function serve(done) {
+  browserSync.init({
     server: {
       baseDir: "./"
     }
   });
+  done();
 }
+
+function watch() {
+  gulp.watch('./scss/*.scss').on('change', reload);
+  gulp.watch('./js/*.js', reload);
+  gulp.watch('./*.html', reload);
+};
 
 const vendor = gulp.series(bootstrap, fontAwesome, jQuery, jQueryEasing);
 const js = gulp.series(scriptsLint, scriptsMinify);
 const css = gulp.series(cssCompile, cssMinify);
 const build = gulp.series(css, js, vendor);
-const dev = gulp.series(css, js, sync, (done) => {
-  gulp.watch('./scss/*.scss', gulp.series(css));
-  gulp.watch('./js/*.js', gulp.series(js));
-  gulp.watch('./*.html', browserSync.reload);
-  done();
-});
+const dev = gulp.series(css, js, serve, watch);
 
 exports.js = js;
 exports.css = css;
