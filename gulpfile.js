@@ -111,9 +111,8 @@ function cssMinify() {
     .pipe(browserSync.stream());
 }
 
-function reload(done) {
+function reload() {
   browserSync.reload();
-  done();
 }
 
 function serve(done) {
@@ -126,8 +125,14 @@ function serve(done) {
 }
 
 function watch() {
-  gulp.watch('./scss/*.scss').on('change', reload);
-  gulp.watch('./js/*.js', reload);
+  gulp.watch('./scss/*.scss').on('change', () => {
+    css();
+    reload();
+  });
+  gulp.watch('./js/*.js', () => {
+    scriptsMinify();
+    reload();
+  });
   gulp.watch('./*.html', reload);
 };
 
