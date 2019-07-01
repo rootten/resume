@@ -15,15 +15,6 @@
     }
   });
 
-  // animates skill bars
-  $('a.js-scroll-trigger[href="#skills"]').click(function () {
-    $('.skill-bar').each(function() {
-      $(this).find('.skill-bar-bar').animate({
-        width: $(this).attr('data-percent')
-      }, 3000);
-    });
-  });
-
   // Closes responsive menu when a scroll trigger link is clicked
   $('.js-scroll-trigger').click(function () {
     $('.navbar-collapse').collapse('hide');
@@ -33,5 +24,25 @@
   $('body').scrollspy({
     target: '#sideNav'
   });
+
+  // animates skill bars on click
+  $('a.js-scroll-trigger[href="#skills"]').click(function () {
+    animateBars();
+  });
+
+  // animates skill bars on click
+  $(window).on("activate.bs.scrollspy", function() {
+    if ($(".js-scroll-trigger.active").attr("href") === "#skills") {
+      animateBars();
+    }
+  });
+
+  function animateBars() {
+    $('.skill-bar').each(function() {
+      $(this).find('.skill-bar-bar').animate({
+        width: $(this).attr('data-percent')
+      }, 3000);
+    });
+  }
 
 })(jQuery); // End of use strict
